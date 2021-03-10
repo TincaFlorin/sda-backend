@@ -10,7 +10,7 @@ public class Product {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    @JoinColumn(name = "category_id")
     private Category category;
 
     private String productName;
@@ -19,14 +19,11 @@ public class Product {
 
     private Double price;
 
-    public Product(Category category, String productName, String imageUrl, Double price) {
-        this.category = category;
-        this.productName = productName;
-        this.imageUrl = imageUrl;
-        this.price = price;
+    public Product() {
     }
 
-    public Product() {
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getId() {

@@ -1,7 +1,6 @@
 package com.example.online_shop_project.entitites;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.List;
@@ -28,6 +27,8 @@ public class Category {
     public Category() {
 
     }
+
+
 
     public Integer getId() {
         return id;

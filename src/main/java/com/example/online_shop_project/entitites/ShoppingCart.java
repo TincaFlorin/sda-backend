@@ -11,23 +11,13 @@ public class ShoppingCart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @OneToOne(mappedBy = "shoppingCart")
     private User user;
 
-    @OneToMany
+    @OneToMany(mappedBy = "shoppingCart")
     private List<ShoppingCartItem> shoppingCartItemList;
 
-    private Double totalPrice;
 
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public Integer getId() {
         return id;
@@ -37,17 +27,13 @@ public class ShoppingCart {
         this.id = id;
     }
 
-    public Double getTotalPrice() {
-        return totalPrice;
+    public User getUser() {
+        return user;
     }
 
-    public void setTotalPrice(Double totalPrice) {
-        this.totalPrice = totalPrice;
+    public void setUser(User user) {
+        this.user = user;
     }
-
-    public ShoppingCart() {
-    }
-
 
     public List<ShoppingCartItem> getShoppingCartItemList() {
         return shoppingCartItemList;
