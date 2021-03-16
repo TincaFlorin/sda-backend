@@ -1,10 +1,15 @@
 package com.example.online_shop_project.entitites;
 
+import com.example.online_shop_project.controllers.BaseController;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
-public class Order {
+public class Order extends BaseController {
+
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,9 +19,8 @@ public class Order {
     @JoinColumn(name= "user_id", referencedColumnName = "id")
     private User user;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "shopping_cart_id", referencedColumnName = "id")
-    private ShoppingCart shoppingCart;
+    @OneToMany(mappedBy = "order")
+    private List<ShoppingCartItem> shoppingCart;
 
 
     public Order() {
@@ -26,11 +30,11 @@ public class Order {
         return id;
     }
 
-    public ShoppingCart getShoppingCart() {
+    public List<ShoppingCartItem> getShoppingCart() {
         return shoppingCart;
     }
 
-    public void setShoppingCart(ShoppingCart shoppingCart) {
+    public void setShoppingCart(List<ShoppingCartItem> shoppingCart) {
         this.shoppingCart = shoppingCart;
     }
 

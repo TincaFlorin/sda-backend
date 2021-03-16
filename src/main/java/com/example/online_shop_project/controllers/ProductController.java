@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping(path = "/product")
+@RequestMapping(path = "/api/product")
 public class ProductController {
 
     @Autowired

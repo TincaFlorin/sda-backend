@@ -1,15 +1,18 @@
 package com.example.online_shop_project.controllers;
 
+import com.example.online_shop_project.entitites.Authority;
 import com.example.online_shop_project.entitites.User;
 import com.example.online_shop_project.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+
 @CrossOrigin
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/api/user")
+public class UserController extends BaseController {
     @Autowired
     private UserRepository userRepository;
 
@@ -23,10 +26,9 @@ public class UserController {
         return userRepository.findById(userId).get();
     }
 
-    @PostMapping("/add")
-    public String addUser(@RequestBody User user) {
-        userRepository.save(user);
-        return "Success";
+    @GetMapping("/{username}")
+    public User getUserByUsername(@PathVariable(name="username") String username) {
+        return userRepository.findByUsername(username);
     }
 
     @PutMapping("/update/{userId}")
@@ -44,5 +46,11 @@ public class UserController {
         return "Success";
     }
 
+    @GetMapping("/authorities")
+    public List<Authority> getAuthorities() {
+        Optional<org.springframework.security.core.userdetails.User> currentUser = getLoggedInUser();
+        User user = userRepository.findByUsername(getLoggedInUser().get().getUsername());
+        return user.getAuthorities();
+    }
 
 }

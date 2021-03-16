@@ -1,6 +1,5 @@
 package com.example.online_shop_project.entitites;
 
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 
@@ -14,12 +13,24 @@ public class ShoppingCartItem {
     private Integer quantity;
 
     @ManyToOne
-    @JoinColumn(name="shopping_cart_id")
-    private ShoppingCart shoppingCart;
+    @JoinColumn(name="userId")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name="orderId")
+    private Order order;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product product;
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 
     public Integer getId() {
         return id;
@@ -37,12 +48,12 @@ public class ShoppingCartItem {
         this.quantity = quantity;
     }
 
-    public ShoppingCart getShoppingCart() {
-        return shoppingCart;
+    public User getUser() {
+        return user;
     }
 
-    public void setShoppingCart(ShoppingCart shoppingCart) {
-        this.shoppingCart = shoppingCart;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Product getProduct() {

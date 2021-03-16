@@ -24,9 +24,8 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Authority> authorities;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "shopping_cart_id", referencedColumnName = "id")
-    private ShoppingCart shoppingCart;
+    @OneToMany(mappedBy = "user")
+    private List<ShoppingCartItem> items;
 
     @OneToMany(mappedBy = "user")
     private List<Order> orderList;
@@ -74,12 +73,12 @@ public class User {
         this.password = password;
     }
 
-    public ShoppingCart getShoppingCart() {
-        return shoppingCart;
+    public List<ShoppingCartItem> getItems() {
+        return items;
     }
 
-    public void setShoppingCart(ShoppingCart shoppingCart) {
-        this.shoppingCart = shoppingCart;
+    public void setItems(List<ShoppingCartItem> items) {
+        this.items = items;
     }
 
     public List<Order> getOrderList() {
