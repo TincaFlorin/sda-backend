@@ -1,17 +1,10 @@
-package com.example.online_shop_project.entitites;
+package com.example.online_shop_project.models;
 
-import javax.persistence.*;
+public class ProductDTO {
 
-@Entity
-@Table(name="product")
-public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    private String category;
 
     private String productName;
 
@@ -19,29 +12,29 @@ public class Product {
 
     private Double price;
 
-    public Product() {
-    }
-
-    public Product(Category category, String productName, String imageUrl, Double price) {
+    public ProductDTO(String category, String productName, String imageUrl, Double price) {
         this.category = category;
         this.productName = productName;
         this.imageUrl = imageUrl;
         this.price = price;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public ProductDTO() {
     }
 
     public Integer getId() {
         return id;
     }
 
-    public Category getCategory() {
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
@@ -68,5 +61,4 @@ public class Product {
     public void setPrice(Double price) {
         this.price = price;
     }
-
 }

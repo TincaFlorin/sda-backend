@@ -29,11 +29,12 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors();
         http.csrf().disable();
-        http.authorizeRequests().antMatchers("/api/user/add").permitAll();
-
-        http.authorizeRequests().anyRequest().authenticated();
-
-        http.antMatcher("/api/**").httpBasic();
+        http
+                .httpBasic()
+                .and()
+                .authorizeRequests()
+                .antMatchers("/register","/api/login").permitAll()
+                .anyRequest().authenticated();
 
     }
 
