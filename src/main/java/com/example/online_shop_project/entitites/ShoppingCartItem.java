@@ -1,6 +1,8 @@
 package com.example.online_shop_project.entitites;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,6 +14,7 @@ public class ShoppingCartItem {
 
     private Integer quantity;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="userId")
     private User user;
@@ -20,9 +23,15 @@ public class ShoppingCartItem {
     @JoinColumn(name="orderId")
     private Order order;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product product;
+
+    public ShoppingCartItem(Integer quantity, User user, Product product) {
+        this.quantity = quantity;
+        this.user = user;
+        this.product = product;
+    }
 
     public Order getOrder() {
         return order;

@@ -33,7 +33,7 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/register","/api/login").permitAll()
+                .antMatchers("/api/register","/api/login").permitAll()
                 .anyRequest().authenticated();
 
     }
