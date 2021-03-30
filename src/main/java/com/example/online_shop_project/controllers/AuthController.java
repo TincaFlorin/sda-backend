@@ -52,7 +52,8 @@ public class AuthController extends BaseController{
         user.setUsername(userDTO.getUsername());
         user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         user.setEnabled(true);
-        user = userRepository.save(user);
+        userRepository.save(user);
+
         Authority authority = new Authority();
         authority.setUsername(user.getUsername());
         authority.setUserAuthority("USER");

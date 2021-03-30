@@ -27,6 +27,7 @@ public class ShoppingCartItem {
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product product;
 
+
     public ShoppingCartItem(Integer quantity, User user, Product product) {
         this.quantity = quantity;
         this.user = user;

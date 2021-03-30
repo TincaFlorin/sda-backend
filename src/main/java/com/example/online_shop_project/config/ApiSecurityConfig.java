@@ -17,6 +17,7 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 @Order(1)
 public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
+
     @Autowired
     private DataSource dataSource;
 
@@ -30,11 +31,11 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors();
         http.csrf().disable();
         http
-                .httpBasic()
-                .and()
+
                 .authorizeRequests()
-                .antMatchers("/api/register","/api/login").permitAll()
-                .anyRequest().authenticated();
+                .antMatchers("/api/register").permitAll()
+                .anyRequest().authenticated()
+                .and().httpBasic();
 
     }
 

@@ -15,4 +15,5 @@ public interface ShoppingCartItemRepository extends JpaRepository<ShoppingCartIt
 
     ShoppingCartItem findByProduct(Product product);
 
+
 }

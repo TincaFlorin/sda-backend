@@ -1,7 +1,9 @@
 package com.example.online_shop_project.controllers;
 
+import com.example.online_shop_project.entitites.Order;
 import com.example.online_shop_project.entitites.Product;
 import com.example.online_shop_project.entitites.ShoppingCartItem;
+import com.example.online_shop_project.repositories.OrderRepository;
 import com.example.online_shop_project.repositories.ProductRepository;
 import com.example.online_shop_project.repositories.ShoppingCartItemRepository;
 import com.example.online_shop_project.repositories.UserRepository;
@@ -16,6 +18,9 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/cart")
 public class ShoppingCartItemController extends BaseController {
+
+    @Autowired
+    OrderRepository orderRepository;
 
     @Autowired
     private ShoppingCartItemRepository shoppingCartItemRepository;
@@ -111,5 +116,37 @@ public class ShoppingCartItemController extends BaseController {
             totalProducts += item.getQuantity();
         }
         return totalProducts;
+    }
+
+    @GetMapping("/clear")
+    public List<ShoppingCartItem> emptyList() {
+        Optional<User> currentUser = getLoggedInUser();
+        com.example.online_shop_project.entitites.User user
+                = userRepository.findByUsername(currentUser.get().getUsername());
+        for(ShoppingCartItem item : user.getItems()) {
+            shoppingCartItemRepository.delete(item);
+        }
+        return user.getItems();
+    }
+
+    @GetMapping("/order")
+    public List<ShoppingCartItem> orderList() {
+        Optional<User> currentUser = getLoggedInUser();
+        com.example.online_shop_project.entitites.User user
+                = userRepository.findByUsername(currentUser.get().getUsername());
+
+        Order order = new Order();
+        order.setUser(user);
+        this.orderRepository.save(order);
+
+        com.example.online_shop_project.entitites.User newUser = new com.example.online_shop_project.entitites.User();
+        userRepository.save(newUser);
+
+        for(ShoppingCartItem item : user.getItems()) {
+            item.setUser(newUser);
+            item.setOrder(order);
+            shoppingCartItemRepository.save(item);
+        }
+        return shoppingCartItemRepository.findByUser(user);
     }
 }
